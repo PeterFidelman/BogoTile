@@ -2,6 +2,7 @@ import curses
 
 tileheight=16
 data = [0]*(8*tileheight)
+shades = ['  ', '`,', '::', '##']
 formatstrs = ['%{:08b}','      ${:02x}']
 
 def main():
@@ -11,7 +12,7 @@ def main():
 	prev = None
 	fs = 0
 	while(True):
-		# Rendering
+		# Display the ASCII art view.
 		for tiley in range(tileheight):
 			for tilex in range(8):
 				lincrt.stdscr.addstr(tiley, 25+tilex*2, shades[data[tiley*8 + tilex]])
@@ -19,7 +20,7 @@ def main():
 			lincrt.stdscr.addstr(tiley, 28+8*2, str(tiley))
 		lincrt.stdscr.addstr(17, 0, 'Arrows to Move! :: QWER to Draw! :: Shift-C to Clear! :: Shift-Q to Quit!')
 
-		# Binary
+		# Display the binary view.
 		for tiley in range(tileheight):
 			line = data[tiley*8 : tiley*8+8]
 
@@ -30,7 +31,8 @@ def main():
 
 		lincrt.stdscr.move(cury, 25+curx*2)
 		lincrt.stdscr.refresh()
-		# Control
+
+		# Handle keystrokes.
 		prev=key
 		key = lincrt.stdscr.getch()
 		if key == curses.KEY_UP:
@@ -94,5 +96,4 @@ class MiniCRT:
 			curses.endwin()
 
 lincrt = MiniCRT()
-shades = ['  ', '`,', '::', '##']
 lincrt.wrapper(main)
