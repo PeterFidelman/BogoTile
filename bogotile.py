@@ -35,13 +35,13 @@ def main():
 		# Handle keystrokes.
 		prev=key
 		key = lincrt.stdscr.getch()
-		if key == curses.KEY_UP:
+		if key == curses.KEY_UP or key == ord('k'):
 			cury = max(0, cury-1)
-		elif key == curses.KEY_DOWN:
+		elif key == curses.KEY_DOWN or key == ord('j'):
 			cury = min(tileheight-1, cury+1)
-		elif key == curses.KEY_LEFT:
+		elif key == curses.KEY_LEFT or key == ord('h'):
 			curx = max(0, curx-1)
-		elif key == curses.KEY_RIGHT:
+		elif key == curses.KEY_RIGHT or key == ord('l'):
 			curx = min(7, curx+1)
 		elif key == ord('B'):
 			fs ^= 1
